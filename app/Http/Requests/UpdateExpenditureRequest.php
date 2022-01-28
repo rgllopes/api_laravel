@@ -6,8 +6,13 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreExpenditureRequest extends FormRequest
+class UpdateExpenditureRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
         return true;
@@ -16,10 +21,9 @@ class StoreExpenditureRequest extends FormRequest
     public function rules()
     {
         return [
-            "description"   => "required|min:3",
-            "value"         => "required|numeric",
-            "datePay"       => "required|date",
-            "id_user"       => "required",
+            "description"   => "min:3",
+            "value"         => "numeric",
+            "datePay"       => "date",
         ];
     }
 
@@ -31,5 +35,4 @@ class StoreExpenditureRequest extends FormRequest
             'data'      => $validator->errors()
         ]));
     }
-
 }
