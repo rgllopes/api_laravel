@@ -6,20 +6,23 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreExpenditureRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
-            "description"   => "required|min:3",
-            "value"         => "required|numeric",
-            "datePay"       => "required|date",
-            "id_user"       => "required",
+            'email'     => 'required|email',
+            'password'  => 'required'
         ];
     }
 

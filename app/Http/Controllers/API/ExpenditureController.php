@@ -15,7 +15,8 @@ class ExpenditureController extends Controller
     public function index()
     {
         // Use resource (transformation cover between model and json return)
-        return ExpenditureResource::collection(Expenditure::all());
+        // return ExpenditureResource::collection(Expenditure::all());
+        return ExpenditureResource::collection(Expenditure::paginate(8));
     }
 
     public function store(StoreExpenditureRequest $request)

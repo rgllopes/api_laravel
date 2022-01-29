@@ -15,9 +15,7 @@ class ExpenditureResource extends JsonResource
             'descrição'         => Str::of($this->description)->upper(),
             'valor'             => $this->value,
             'data_Pagamento'    => $this->datePay,
-            'id_usuario'        => $this->id_user,
-            'data_criação'      => $this->created_at->format('d-m-Y'),
-            'data_modificação'  => $this->updated_at->format('d-m-Y')
+            'id_usuario'        => $this->id_user
         ];
     }
 

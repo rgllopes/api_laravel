@@ -6,7 +6,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreExpenditureRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,10 +16,9 @@ class StoreExpenditureRequest extends FormRequest
     public function rules()
     {
         return [
-            "description"   => "required|min:3",
-            "value"         => "required|numeric",
-            "datePay"       => "required|date",
-            "id_user"       => "required",
+            'name'      => 'required',
+            'email'     => 'required|email|unique:users,email',
+            'password'  => 'required|min:8'
         ];
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -40,10 +42,22 @@ class Handler extends ExceptionHandler
         });
     }
 
+    protected function invalidJson($request, ValidationException $exception)
+    {
+        return response()->json([
+            'msg'       => __('Os dados proporcionados não são válidos!'),
+            'errors'    => $exception->errors(),
+        ], $exception->status);
+    }
+
     public function render($request, Throwable $exception)
     {
         if($exception instanceof ModelNotFoundException) {
-            return response()->json(['res' => false, 'error' => "Record not found!"], 400);
+            return response()->json(['res' => false, 'error' => "Registro não encontrado!"], 400);
+        }
+
+        if($exception instanceof RouteNotFoundException) {
+            return response()->json(['res' => false, 'error' => "Sem permissão para acessar esta pagina!"], 401);
         }
         return parent::render($request, $exception);
     }
