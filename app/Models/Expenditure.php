@@ -16,8 +16,8 @@ class Expenditure extends Model
         'id_user',
     ];
 
-    protected $hidden =[
-        'created_at',
-        'updated_at'
-    ];
+    // protected $hidden =[
+    //     'created_at',
+    //     'updated_at'
+    // ];
 }

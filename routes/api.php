@@ -14,8 +14,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('users', [UserController::class, 'index']);
 
 // Expenditures routes
-Route::get('expenditures', [ExpenditureController::class, 'index']);
-Route::get('expenditures/{expenditure}', [ExpenditureController::class, 'show']);
-Route::post('expenditures', [ExpenditureController::class, 'store']);
-Route::put('expenditures/{expenditure}', [ExpenditureController::class, 'update']);
-Route::delete('expenditures/{expenditure}', [ExpenditureController::class, 'destroy']);
+// Route::get('expenditures', [ExpenditureController::class, 'index']);
+// Route::get('expenditures/{expenditure}', [ExpenditureController::class, 'show']);
+// Route::post('expenditures', [ExpenditureController::class, 'store']);
+// Route::put('expenditures/{expenditure}', [ExpenditureController::class, 'update']);
+// Route::delete('expenditures/{expenditure}', [ExpenditureController::class, 'destroy']);
+
+Route::apiResource('expenditures', ExpenditureController::class);

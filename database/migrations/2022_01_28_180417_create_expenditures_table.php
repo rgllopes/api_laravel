@@ -18,7 +18,7 @@ class CreateExpendituresTable extends Migration
 
             $table->string('description')->nullable(false);
             $table->decimal('value', 9, 2)-> nullable(false);
-            $table->date('datePay')->nullable(false);
+            $table->dateTime('datePay')->nullable(false);
             $table->integer('id_user')->nullable(false);
 
             $table->timestamps();

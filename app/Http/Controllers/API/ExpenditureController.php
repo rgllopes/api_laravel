@@ -7,51 +7,45 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreExpenditureRequest;
 use App\Http\Requests\UpdateExpenditureRequest;
+use App\Http\Resources\ExpenditureResource;
 
 class ExpenditureController extends Controller
 {
 
     public function index()
     {
-        return Expenditure::all();
+        // Use resource (transformation cover between model and json return)
+        return ExpenditureResource::collection(Expenditure::all());
     }
 
     public function store(StoreExpenditureRequest $request)
     {
-        Expenditure::create($request->all());
-        return response()->json([
-            'res' => true,
-            'msg' => 'Gasto guardado com sucesso!'
-        ],200);
+        return (new ExpenditureResource( Expenditure::create($request->all())))
+                ->additional(['msg' => "Despesa adicionado com sucesso!"])
+                ->response()
+                ->setStatusCode(201);
     }
 
     public function show(Expenditure $expenditure)
     {
-        return response()->json([
-            'res'           => true,
-            'expenditure'   => $expenditure
-        ],200);
+        return new ExpenditureResource($expenditure);
     }
 
     public function update(UpdateExpenditureRequest $request, Expenditure $expenditure)
     {
         $expenditure->update($request->all());
-        
-        return response()->json([
-            'res'       => true,
-            'message'   => "Gasto atualizado com sucesso!",
-            'datas'     => $expenditure
-        ],200);
+        return (new ExpenditureResource($expenditure))
+                ->additional(['msg' => 'Despesa atualizado com sucesso!'])
+                ->response()
+                ->setStatusCode(200);
     }
 
     public function destroy(Expenditure $expenditure)
     {
         $expenditure->delete();
-        
-        return response()->json([
-            'res'       => true,
-            'message'   => "Gasto eliminado com sucesso!",
-            'datas'     => $expenditure
-        ],200);
+        return (new ExpenditureResource($expenditure))
+                ->additional(['msg' => 'Despesa removida com sucesso!'])
+                ->response()
+                ->setStatusCode(200);
     }
 }
