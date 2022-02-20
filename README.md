@@ -1,4 +1,4 @@
-# API REST LARAVEL
+## API REST LARAVEL COM AUTENTICAÇÃO VIA SANCTRUM
 
 ### Ferramentas utilizadas
 
